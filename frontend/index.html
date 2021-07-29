@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="post_form" action="">
+        氏名<input type="text" name="your_name" value="氏名">
+        コメント<input type="text" name="comment" value="コメント">
+        <button id="form_button" type="button">送信</button>
+    </form>
+    <button id="get_button">
+        GET
+    </button>
+    <script>
+        document.getElementById('get_button').addEventListener('click',()=>{
+            const url = new URL('http://localhost:8080/ping');
+
+            const get_option = {
+                method: 'GET',
+                mode: 'cors'
+            };
+
+
+            fetch(url,get_option)
+                .then(
+                  function(response) {
+                    if (response.status !== 200) {
+                      console.log('Looks like there was a problem. Status Code: ' +
+                        response.status);
+                      return;
+                    }
+
+                    // Examine the text in the response
+                    response.json().then(function(data) {
+                      console.log(data);
+                    });
+                  }
+                )
+                .catch(function(err) {
+                  console.log('Fetch Error :-S', err);
+                });
+
+            const response = fetch(url,get_option);
+            console.log(response)
+        });
+    </script>
+</body>
+</html>
