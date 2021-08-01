@@ -31,7 +31,7 @@ func Start() {
 
 	// example
 	http.HandleFunc("/ping", middleware(func(w http.ResponseWriter, r *http.Request) {
-		b, err := json.Marshal("pong")
+		b, err := json.Marshal("{ping:pong}")
 		if err != nil {
 			panic(err)
 		}

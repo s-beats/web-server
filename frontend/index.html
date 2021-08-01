@@ -9,6 +9,7 @@
     <button id="get_button">
         GET
     </button>
+    <p id="output"></p>
     <script>
         document.getElementById('get_button').addEventListener('click',()=>{
             const url = new URL('http://localhost:8080/ping');
@@ -31,15 +32,14 @@
                     // Examine the text in the response
                     response.json().then(function(data) {
                       console.log(data);
+                      const output = document.getElementById('output');
+                      output.textContent = data;
                     });
                   }
                 )
                 .catch(function(err) {
                   console.log('Fetch Error :-S', err);
                 });
-
-            const response = fetch(url,get_option);
-            console.log(response)
         });
     </script>
 </body>
