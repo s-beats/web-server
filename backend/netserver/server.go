@@ -3,20 +3,29 @@ package netserver
 import (
 	"log"
 	"net"
-
-	"github.com/go-pp/pp"
+	"net/http"
 )
 
 func Start() {
+	// Open TCP Socket
 	ln, err := net.Listen("tcp", ":8080")
 	if err != nil {
 		log.Fatal(err)
 	}
-	rw, err := ln.Accept()
-	if err != nil {
-		log.Fatal(err)
-	}
+	for {
+		// Accept reqest
+		conn, err := ln.Accept()
+		if err != nil {
+			log.Fatal(err)
+		}
 
-	// TODO: net.TCPConnを操作してresponseを作る
-	pp.Println(rw)
+		// curl -I localhost:8080
+		// HTTP/0.0 200 OK
+		// Content-Length: 0
+		res := http.Response{
+			StatusCode: 200,
+		}
+		res.Write(conn)
+		conn.Close()
+	}
 }
