@@ -7,8 +7,11 @@ import (
 )
 
 func Start() {
+	addr := ":8080"
+	// handler := func(w http.ResponseWriter, r *http.Request) {}
+
 	// Open TCP Socket
-	ln, err := net.Listen("tcp", ":8080")
+	ln, err := net.Listen("tcp", addr)
 	if err != nil {
 		log.Fatal(err)
 	}
