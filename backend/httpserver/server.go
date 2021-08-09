@@ -38,5 +38,6 @@ func Start() {
 		}
 		io.WriteString(w, string(b))
 	}))
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	// Only localhost
+	log.Fatal(http.ListenAndServe("127.0.0.1:8080", nil))
 }

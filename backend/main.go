@@ -1,8 +1,6 @@
 package main
 
-import (
-	"example.com/netserver"
-)
+import "example.com/netserver"
 
 func main() {
 	netserver.Start()
