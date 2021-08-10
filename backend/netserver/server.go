@@ -15,9 +15,7 @@ func Start() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	l := struct{ listner net.Listener }{ln}
-	defer l.listner.Close()
+	defer ln.Close()
 
 	// TODO: HTTP2
 	// TODO: Track

@@ -1,7 +1,7 @@
 package main
 
-import "example.com/netserver"
+import "example.com/syscallserver"
 
 func main() {
-	netserver.Start()
+	syscallserver.Start()
 }
