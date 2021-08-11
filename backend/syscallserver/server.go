@@ -37,12 +37,12 @@ func Start() {
 		}
 
 		log.Printf("Sockaddr is %#v", addr)
+		log.Printf("fd is %#v", fd)
 		log.Printf("nfd is %#v", nfd)
 
-		if _, err := syscall.Write(fd, []byte("response")); err != nil {
+		if _, err := syscall.Write(nfd, []byte("response!")); err != nil {
 			log.Println("syscall.Write error")
 			log.Fatal(err)
 		}
-		// FIXME: socket is not conncted
 	}
 }
