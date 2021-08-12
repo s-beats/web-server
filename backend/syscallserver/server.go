@@ -40,7 +40,8 @@ func Start() {
 		log.Printf("fd is %#v", fd)
 		log.Printf("nfd is %#v", nfd)
 
-		if _, err := syscall.Write(nfd, []byte("response!")); err != nil {
+		res := "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nDate: Mon, 09 Aug 2021 09:33:03 GMT\r\nContent-Length: 2\r\n\r\nok\r\n"
+		if _, err := syscall.Write(nfd, []byte(res)); err != nil {
 			log.Println("syscall.Write error")
 			log.Fatal(err)
 		}
