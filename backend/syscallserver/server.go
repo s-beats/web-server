@@ -39,7 +39,7 @@ func Start() {
 			log.Fatal(err)
 		}
 
-		b := make([]byte, 67)
+		b := make([]byte, 1024)
 		n, err := syscall.Read(nfd, b)
 		if err != nil {
 			log.Println("syscall.Read error")
