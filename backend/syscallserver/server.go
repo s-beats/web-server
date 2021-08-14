@@ -8,6 +8,9 @@ import (
 
 func Start() {
 	syscall.ForkLock.Lock()
+	// domain is protocol family (IPv4)
+	// type is communication
+	// proto is sepecify socket type
 	fd, err := syscall.Socket(syscall.AF_INET, syscall.SOCK_STREAM, 0)
 	if err != nil {
 		log.Fatal(err)
