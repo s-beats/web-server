@@ -7,6 +7,7 @@ import (
 )
 
 func Start() {
+	// not affcted by other parallel process
 	syscall.ForkLock.Lock()
 	// domain is protocol family (IPv4)
 	// type is communication
