@@ -1,7 +1,7 @@
 package main
 
-import "example.com/syscallserver"
+import "example.com/httpserver"
 
 func main() {
-	syscallserver.Start()
+	httpserver.Start()
 }

@@ -10,7 +10,14 @@ import (
 // https://golang.org/doc/articles/wiki/#tmp_1
 
 func Start() {
-	middleware := func(f http.HandlerFunc) http.HandlerFunc {
+	loggerMiddleware := func(f http.HandlerFunc) http.HandlerFunc {
+		return func(w http.ResponseWriter, r *http.Request) {
+			f(w, r)
+			log.Printf("[%v] ", r.Method)
+		}
+	}
+
+	corsMiddleware := func(f http.HandlerFunc) http.HandlerFunc {
 		return func(w http.ResponseWriter, r *http.Request) {
 			// CORS の許可
 			w.Header().Set("Access-Control-Allow-Headers", "*")
@@ -22,22 +29,22 @@ func Start() {
 	}
 
 	// health check
-	http.HandleFunc("/health", middleware(func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/health", loggerMiddleware(corsMiddleware(func(w http.ResponseWriter, r *http.Request) {
 		b, err := json.Marshal("ok")
 		if err != nil {
 			panic(err)
 		}
 		io.WriteString(w, string(b))
-	}))
+	})))
 
 	// example
-	http.HandleFunc("/ping", middleware(func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/ping", loggerMiddleware(corsMiddleware(func(w http.ResponseWriter, r *http.Request) {
 		b, err := json.Marshal("{ping:pong}")
 		if err != nil {
 			panic(err)
 		}
 		io.WriteString(w, string(b))
-	}))
+	})))
 	// Only localhost
 	log.Fatal(http.ListenAndServe("127.0.0.1:8080", nil))
 }
