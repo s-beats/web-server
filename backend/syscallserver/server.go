@@ -6,6 +6,7 @@ import (
 	"syscall"
 )
 
+// reference: https://gist.github.com/jschaf/93f37aedb5327c54cb356b2f1f0427e3
 func Start() {
 	// not affcted by other parallel process
 	syscall.ForkLock.Lock()
