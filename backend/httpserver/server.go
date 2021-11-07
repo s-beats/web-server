@@ -2,14 +2,29 @@ package httpserver
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
+	"os"
 )
 
-// https://golang.org/doc/articles/wiki/#tmp_1
+var (
+	hostname string
+	port     string
+	address  string
+)
 
+func setenv() {
+	hostname = os.Getenv("HOSTNAME")
+	port = os.Getenv("PORT")
+	address = fmt.Sprintf("%s:%s", hostname, port)
+}
+
+// https://golang.org/doc/articles/wiki/#tmp_1
 func Start() {
+	setenv()
+
 	loggerMiddleware := func(f http.HandlerFunc) http.HandlerFunc {
 		return func(w http.ResponseWriter, r *http.Request) {
 			f(w, r)
@@ -45,6 +60,8 @@ func Start() {
 		}
 		io.WriteString(w, string(b))
 	})))
+
 	// Only localhost
-	log.Fatal(http.ListenAndServe("127.0.0.1:8080", nil))
+	fmt.Printf("listen server address: %s", address)
+	log.Fatal(http.ListenAndServe(address, nil))
 }
