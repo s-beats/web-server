@@ -48,14 +48,14 @@ func Start() {
 	r := gin.Default()
 
 	// Logging middleware
+	r.Use(logging)
 
 	// CORS middleware
 	r.Use(cors.Default())
 
-	// Authorization middleware
-	r.Use(authorization)
 	// /auth/*
-	auth := r.Group("/auth")
+	// use Authorization middleware
+	auth := r.Group("/auth", authorization)
 
 	// /auth/ping
 	auth.GET("/ping", func(c *gin.Context) {

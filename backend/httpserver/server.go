@@ -53,6 +53,25 @@ func Start() {
 	})))
 
 	// example
+	http.HandleFunc("/example", loggerMiddleware(corsMiddleware(func(w http.ResponseWriter, r *http.Request) {
+		b, err := json.Marshal(
+			struct {
+				String string
+				Int    int
+				Bool   bool
+			}{
+				String: "example",
+				Int:    1,
+				Bool:   true,
+			},
+		)
+		if err != nil {
+			panic(err)
+		}
+		io.WriteString(w, string(b))
+	})))
+
+	// ping
 	http.HandleFunc("/ping", loggerMiddleware(corsMiddleware(func(w http.ResponseWriter, r *http.Request) {
 		b, err := json.Marshal("{ping:pong}")
 		if err != nil {

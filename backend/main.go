@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"example.com/httpserver"
+	"example.com/ginserver"
 	"github.com/joho/godotenv"
 )
 
@@ -13,5 +13,8 @@ func main() {
 		log.Println("Error loading .env file")
 	}
 
-	httpserver.Start()
+	// httpserver.Start()
+	ginserver.Start()
+	// netserver.Start()
+	// syscallserver.Start()
 }
